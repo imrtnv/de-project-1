@@ -10,7 +10,6 @@
  - 1.6 Примечание - Успешно выполненый заказ - статус 'Closed'
  
 2 Изучение структуры исходных данных:
-  2.1 Посмотрим наличие источников в таблице (select *
-                                        from pg_catalog.pg_tables
-                                        where schemaname = 'production')
+  - 2.1 Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
+  --
  
