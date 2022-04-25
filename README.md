@@ -12,5 +12,7 @@
 2 Изучение структуры исходных данных: Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
  - orderitems (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, product_id int4 NOT NULL, order_id int4 NOT NULL, "name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0, discount numeric(19, 5) NOT NULL DEFAULT 0, quantity int4 NOT NULL)
  - orders (	order_id int4 NOT NULL, order_ts timestamp NOT NULL, user_id int4 NOT NULL, bonus_payment numeric(19, 5) NOT NULL DEFAULT 0, payment numeric(19, 5) NOT NULL DEFAULT 0, "cost" numeric(19, 5) NOT NULL DEFAULT 0, bonus_grant numeric(19, 5) NOT NULL DEFAULT 0, status int4 NOT NULL)
- - 
- 
+ - orderstatus (id int4 NOT NULL, "key" varchar(255) NOT NULL)
+ - orderstatuslog (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, order_id int4 NOT NULL, status_id int4 NOT NULL, dttm timestamp NOT NULL)
+ - product (id int4 NOT NULL, 	"name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0)
+ - users (id int4 NOT NULL, "name" varchar(2048) NULL, login varchar(2048) NOT NULL)
