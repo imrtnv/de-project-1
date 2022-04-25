@@ -9,10 +9,20 @@
  - 1.5 Частота обновлений - Не требуется
  - 1.6 Примечание - Успешно выполненый заказ - статус 'Closed'
  
-2 Изучение структуры исходных данных: Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
+2.1 Изучение структуры исходных данных: Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
  - orderitems (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, product_id int4 NOT NULL, order_id int4 NOT NULL, "name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0, discount numeric(19, 5) NOT NULL DEFAULT 0, quantity int4 NOT NULL)
  - orders (	order_id int4 NOT NULL, order_ts timestamp NOT NULL, user_id int4 NOT NULL, bonus_payment numeric(19, 5) NOT NULL DEFAULT 0, payment numeric(19, 5) NOT NULL DEFAULT 0, "cost" numeric(19, 5) NOT NULL DEFAULT 0, bonus_grant numeric(19, 5) NOT NULL DEFAULT 0, status int4 NOT NULL)
  - orderstatus (id int4 NOT NULL, "key" varchar(255) NOT NULL)
  - orderstatuslog (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, order_id int4 NOT NULL, status_id int4 NOT NULL, dttm timestamp NOT NULL)
  - product (id int4 NOT NULL, 	"name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0)
  - users (id int4 NOT NULL, "name" varchar(2048) NULL, login varchar(2048) NOT NULL)
+
+2.2 Определим необходимые поля для дальнейшей работы с таблицей
+- users - Таблица users
+- recency - Таблица orders(order_ts, user_id, status) 
+- frequency - Таблица orders(order_id, user_id, status)
+- monetary_value - Таблица orders(cost, user_id, status)
+
+recency — чтобы рассчитать, давность покупки, достаточно идентификатора клиента user_id и времени заказа order_ts.
+frequency — чтобы рассчитать, количество покупок, достаточно идентификатора клиента user_id , order_id и status
+monetary_value — чтобы рассчитать, сумму покупок, достаточно идентификатора клиента user_id , cost и status
