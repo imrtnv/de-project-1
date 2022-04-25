@@ -23,6 +23,15 @@
 - frequency - Таблица orders(order_id, user_id, status)
 - monetary_value - Таблица orders(cost, user_id, status)
 
-recency — чтобы рассчитать, давность покупки, достаточно идентификатора клиента user_id и времени заказа order_ts.
-frequency — чтобы рассчитать, количество покупок, достаточно идентификатора клиента user_id , order_id и status
-monetary_value — чтобы рассчитать, сумму покупок, достаточно идентификатора клиента user_id , cost и status
+- recency — чтобы рассчитать, давность покупки, достаточно идентификатора клиента user_id и времени заказа order_ts.
+- frequency — чтобы рассчитать, количество покупок, достаточно идентификатора клиента user_id , order_id и status
+- monetary_value — чтобы рассчитать, сумму покупок, достаточно идентификатора клиента user_id , cost и status
+
+3.1 Проанализируйте качество данных
+- Проверка дублей (select count(*), count(distinct order_id) from production.orders o) - не содержит дублей
+- Поиск пропущенных значений (select sum(case when order_ts is null then 1 else 0 end) as case_order_ts,
+	sum(case when order_id  is null then 1 else 0 end) as case_order_id,
+	sum(case when user_id  is null then 1 else 0 end) as case_user_id,
+	sum(case when cost  is null then 1 else 0 end) as case_cost
+from production.orders o) - Пропусков не содержит
+- х
