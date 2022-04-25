@@ -9,7 +9,8 @@
  - 1.5 Частота обновлений - Не требуется
  - 1.6 Примечание - Успешно выполненый заказ - статус 'Closed'
  
-2 Изучение структуры исходных данных:
-  - 2.1 Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
-  --
+2 Изучение структуры исходных данных: Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:
+ - orderitems (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, product_id int4 NOT NULL, order_id int4 NOT NULL, "name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0, discount numeric(19, 5) NOT NULL DEFAULT 0, quantity int4 NOT NULL)
+ - orders (	order_id int4 NOT NULL, order_ts timestamp NOT NULL, user_id int4 NOT NULL, bonus_payment numeric(19, 5) NOT NULL DEFAULT 0, payment numeric(19, 5) NOT NULL DEFAULT 0, "cost" numeric(19, 5) NOT NULL DEFAULT 0, bonus_grant numeric(19, 5) NOT NULL DEFAULT 0, status int4 NOT NULL)
+ - 
  
