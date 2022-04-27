@@ -20,7 +20,7 @@
  - product (id int4 NOT NULL, 	"name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0)
  - users (id int4 NOT NULL, "name" varchar(2048) NULL, login varchar(2048) NOT NULL)
 
-**Необходимые поля **
+**Необходимые поля**
 - users - Таблица users
 - recency - Таблица orders(order_ts, user_id, status) 
 - frequency - Таблица orders(order_id, user_id, status)
@@ -40,3 +40,6 @@ from production.orders o) - Пропусков не содержит
 - Проверка адекватности в данных (select min(cost), max(cost), avg(cost)
 from production.orders o ) - данные находятся в реальном диапазоне 
 - Инструменты для оценки поддержки каччества таблицы (orders - все поля not null, проверка на поле cost (payment + bonus_payment) = cost
+
+
+В папке src содержится скрипт которые записывает данные в витрину
