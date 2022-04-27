@@ -1,5 +1,8 @@
 # Проект 1
-Опишите здесь поэтапно ход решения задачи. Вы можете ориентироваться на тот план выполнения проекта, который мы предлагаем в инструкции на платформе.
+Описание проекта
+
+Заказчик — компания, которая разрабатывает приложение по доставке еды.
+Необходимо составить витрину для RFM-классификации пользователей приложения.
 
 **Сбор требований:**
  - 1.1 Куда сохранить - Витрина должна располагаться в той же базе в схеме analysis,
@@ -9,7 +12,7 @@
  - 1.5 Частота обновлений - Не требуется
  - 1.6 Примечание - Успешно выполненый заказ - статус 'Closed'
  
-**Изучение структуры исходных данных: Посмотрим наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:**
+**Структура исходных данных: Наличие источников в таблице (select * from pg_catalog.pg_tables where schemaname = 'production'), доступно 6 таблиц:**
  - orderitems (id int4 NOT NULL GENERATED ALWAYS AS IDENTITY, product_id int4 NOT NULL, order_id int4 NOT NULL, "name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0, discount numeric(19, 5) NOT NULL DEFAULT 0, quantity int4 NOT NULL)
  - orders (	order_id int4 NOT NULL, order_ts timestamp NOT NULL, user_id int4 NOT NULL, bonus_payment numeric(19, 5) NOT NULL DEFAULT 0, payment numeric(19, 5) NOT NULL DEFAULT 0, "cost" numeric(19, 5) NOT NULL DEFAULT 0, bonus_grant numeric(19, 5) NOT NULL DEFAULT 0, status int4 NOT NULL)
  - orderstatus (id int4 NOT NULL, "key" varchar(255) NOT NULL)
@@ -17,7 +20,7 @@
  - product (id int4 NOT NULL, 	"name" varchar(2048) NOT NULL, price numeric(19, 5) NOT NULL DEFAULT 0)
  - users (id int4 NOT NULL, "name" varchar(2048) NULL, login varchar(2048) NOT NULL)
 
-**Определим необходимые поля для дальнейшей работы с таблицей**
+**Необходимые поля **
 - users - Таблица users
 - recency - Таблица orders(order_ts, user_id, status) 
 - frequency - Таблица orders(order_id, user_id, status)
@@ -27,7 +30,7 @@
 - frequency — чтобы рассчитать, количество покупок, достаточно идентификатора клиента user_id , order_id и status
 - monetary_value — чтобы рассчитать, сумму покупок, достаточно идентификатора клиента user_id , cost и status
 
-**Проанализируйте качество данных**
+**Качество данных**
 - Проверка дублей (select count(*), count(distinct order_id) from production.orders o) - не содержит дублей
 - Поиск пропущенных значений (select sum(case when order_ts is null then 1 else 0 end) as case_order_ts,
 	sum(case when order_id  is null then 1 else 0 end) as case_order_id,
